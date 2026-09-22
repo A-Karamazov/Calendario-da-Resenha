@@ -6,21 +6,21 @@
 
 :root{
   /* --- paleta --- */
-  --paper:        #F2F4F7;
-  --surface:      #FFFFFF;
-  --ink:          #1C2430;
-  --ink-soft:     #5B6472;
+  --paper:        #011b41;
+  --surface:      #28243f;
+  --ink:          #f1f6ff;
+  --ink-soft:     #f0f6fd;
   --line:         #E1E5EB;
 
-  --primary:      #114B5F;
+  --primary:      #35cafc;
   --primary-dark: #0B3441;
   --primary-tint: #E4EEF1;
 
   --gold:         #E3B23C;
 
-  --urgent:       #C64B3C;
-  --urgent-bg:    #FBE9E6;
-  --urgent-line:  #F0C2BA;
+  --urgent:       #df7c6f;
+  --urgent-bg:    #ff3b18;
+  --urgent-line:  #bd5d4d;
 
   /* tags por matéria */
   --tag-hist-bg:  #E7E9FA; --tag-hist-tx:  #3D3F92;
