@@ -1,0 +1,456 @@
+/* =========================================================
+   Agenda Acadêmica — estilos estáticos (HTML/CSS, sem JS)
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  /* --- paleta --- */
+  --paper:        #F2F4F7;
+  --surface:      #FFFFFF;
+  --ink:          #1C2430;
+  --ink-soft:     #5B6472;
+  --line:         #E1E5EB;
+
+  --primary:      #114B5F;
+  --primary-dark: #0B3441;
+  --primary-tint: #E4EEF1;
+
+  --gold:         #E3B23C;
+
+  --urgent:       #C64B3C;
+  --urgent-bg:    #FBE9E6;
+  --urgent-line:  #F0C2BA;
+
+  /* tags por matéria */
+  --tag-hist-bg:  #E7E9FA; --tag-hist-tx:  #3D3F92;
+  --tag-geo-bg:   #E1F2EA; --tag-geo-tx:   #1E7A4D;
+  --tag-port-bg:  #FBEEDA; --tag-port-tx:  #93611A;
+  --tag-bio-bg:   #DEF3F0; --tag-bio-tx:   #1A7A6D;
+  --tag-quim-bg:  #F1E6F8; --tag-quim-tx:  #7A3A93;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  margin:0;
+  padding:0;
+}
+
+body{
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* fundo com leve textura de "linhas de caderno" atrás do cartão */
+body{
+  background-image: linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 34px;
+  background-attachment: fixed;
+}
+
+.page{
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- header ---------- */
+.app-header{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 20px 0 20px;
+}
+
+.app-header__top{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.app-header__icon{
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.app-header__icon svg{ width: 17px; height: 17px; }
+
+.app-header__title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.tabs{
+  display: flex;
+  gap: 22px;
+}
+
+.tab{
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 12px;
+  margin-right: 22px;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.is-active{
+  color: var(--primary);
+  border-bottom-color: var(--gold);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 26px 20px 22px 20px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero h1{
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.22;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: var(--ink);
+  max-width: 27ch;
+}
+
+.hero p{
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  max-width: 34ch;
+}
+
+.hero__badge{
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--primary-tint);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero__badge svg{ width: 24px; height: 24px; }
+.hero__badge .check{
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero__badge .check svg{ width: 10px; height: 10px; }
+
+/* ---------- lista de tarefas ---------- */
+.list-section{
+  padding: 20px 20px 28px 20px;
+  flex: 1;
+}
+
+.list-section__head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.list-section__head h2{
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sort{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.sort select{
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 6px 8px;
+}
+
+.task-list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task{
+  display: grid;
+  grid-template-columns: 78px 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding: 13px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.task.is-urgent{
+  background: var(--urgent-bg);
+  border-color: var(--urgent-line);
+}
+
+.task__subject{
+  font-size: 11px;
+}
+
+.task__subject-name{
+  display: block;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.task__type{
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.task__type--historia{ background: var(--tag-hist-bg); color: var(--tag-hist-tx); }
+.task__type--geografia{ background: var(--tag-geo-bg); color: var(--tag-geo-tx); }
+.task__type--portugues{ background: var(--tag-port-bg); color: var(--tag-port-tx); }
+.task__type--biologia{ background: var(--tag-bio-bg); color: var(--tag-bio-tx); }
+.task__type--quimica{ background: var(--tag-quim-bg); color: var(--tag-quim-tx); }
+.task__type--matematica{ background: var(--urgent); color: #fff; }
+
+.task__name{
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 3px 0;
+  color: var(--ink);
+}
+
+.task__desc{
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.task__meta{
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.task__date{
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.task__date svg{ width: 12px; height: 12px; flex-shrink: 0; }
+
+.task__countdown{
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: var(--primary-tint);
+  color: var(--primary-dark);
+  white-space: nowrap;
+}
+
+.task.is-urgent .task__countdown{
+  background: var(--urgent);
+  color: #fff;
+}
+
+/* ---------- formulário: nova tarefa ---------- */
+.form-section{
+  padding: 26px 20px 32px 20px;
+  flex: 1;
+}
+
+.form-section h1{
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.form-section > p{
+  margin: 0 0 24px 0;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+}
+
+.field{
+  margin-bottom: 18px;
+}
+
+.field label{
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 7px;
+  color: var(--ink);
+}
+
+.field label .req{
+  color: var(--urgent);
+}
+
+.field input[type="text"],
+.field input[type="date"],
+.field select,
+.field textarea{
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 11px 12px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+  color: #98A1AD;
+}
+
+.field select{
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%235B6472' stroke-width='1.6'><path d='M5 8l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 34px;
+}
+
+.field textarea{
+  resize: vertical;
+  min-height: 92px;
+  font-family: var(--font-body);
+}
+
+.field-hint{
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+
+.form-actions{
+  display: flex;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.btn{
+  flex: 1;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 13px 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn--ghost{
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.btn--primary{
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ---------- responsivo ---------- */
+@media (min-width: 540px){
+  body{ padding: 28px 0; }
+  .page{
+    border-radius: var(--radius-md);
+    min-height: auto;
+    box-shadow: 0 1px 2px rgba(20,30,40,0.04), 0 0 0 1px var(--line);
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 380px){
+  .task{
+    grid-template-columns: 1fr;
+  }
+  .task__meta{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+/* foco visível para acessibilidade */
+a:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}

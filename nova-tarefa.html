@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda Acadêmica — Nova Tarefa</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <header class="app-header">
+    <div class="app-header__top">
+      <span class="app-header__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="16" rx="2"/>
+          <path d="M3 10h18"/>
+          <path d="M8 3v4M16 3v4"/>
+        </svg>
+      </span>
+      <p class="app-header__title">Agenda Acadêmica</p>
+    </div>
+    <nav class="tabs">
+      <a class="tab" href="index.html">Tarefas</a>
+      <a class="tab is-active" href="nova-tarefa.html">Nova Tarefa</a>
+    </nav>
+  </header>
+
+  <section class="form-section">
+    <h1>Criar nova tarefa</h1>
+    <p>Preencha as informações abaixo para adicionar uma nova tarefa à lista.</p>
+
+    <form>
+      <div class="field">
+        <label for="nome">Nome da tarefa <span class="req">*</span></label>
+        <input type="text" id="nome" placeholder="Ex: Prova de Matemática">
+      </div>
+
+      <div class="field">
+        <label for="materia">Matéria <span class="req">*</span></label>
+        <select id="materia">
+          <option value="" selected disabled>Selecione a matéria</option>
+          <option>Matemática</option>
+          <option>História</option>
+          <option>Geografia</option>
+          <option>Português</option>
+          <option>Biologia</option>
+          <option>Química</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="tipo">Tipo de atividade <span class="req">*</span></label>
+        <select id="tipo">
+          <option value="" selected disabled>Selecione o tipo</option>
+          <option>Prova</option>
+          <option>Trabalho</option>
+          <option>Apresentação</option>
+          <option>Redação</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="data">Data de entrega <span class="req">*</span></label>
+        <input type="date" id="data">
+      </div>
+
+      <div class="field">
+        <label for="descricao">Descrição / Observações</label>
+        <textarea id="descricao" placeholder="Adicione mais detalhes sobre a tarefa (opcional)..."></textarea>
+        <p class="field-hint">Campo opcional — use para instruções, materiais necessários ou critérios de avaliação.</p>
+      </div>
+
+      <div class="form-actions">
+        <a class="btn btn--ghost" href="index.html">Cancelar</a>
+        <a class="btn btn--primary" href="index.html">Salvar tarefa</a>
+      </div>
+    </form>
+  </section>
+
+</div>
+
+</body>
+</html>
