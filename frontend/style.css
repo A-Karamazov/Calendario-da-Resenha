@@ -1,26 +1,21 @@
-/* =========================================================
-   Agenda Acadêmica — estilos estáticos (HTML/CSS, sem JS)
-   ========================================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root{
   /* --- paleta --- */
-  --paper:        #011b41;
-  --surface:      #28243f;
-  --ink:          #f1f6ff;
+  --paper:        #aaf8bd;
+  --surface:      #1a923e;
+  --ink:          #f54141;
   --ink-soft:     #f0f6fd;
   --line:         #E1E5EB;
 
-  --primary:      #35cafc;
-  --primary-dark: #0B3441;
+  --primary:      #35fc81;
+  --primary-dark: #b9efff;
   --primary-tint: #E4EEF1;
 
   --gold:         #E3B23C;
 
-  --urgent:       #df7c6f;
-  --urgent-bg:    #ff3b18;
-  --urgent-line:  #bd5d4d;
+  --urgent:       #741102;
+  --urgent-bg:    #ff2600;
+  --urgent-line:  #380800;
 
   /* tags por matéria */
   --tag-hist-bg:  #E7E9FA; --tag-hist-tx:  #3D3F92;
@@ -31,7 +26,7 @@
 
   --radius-sm: 8px;
   --radius-md: 14px;
-  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-display: 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'Segoe UI', sans-serif;
 }
 
@@ -51,7 +46,6 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 
-/* fundo com leve textura de "linhas de caderno" atrás do cartão */
 body{
   background-image: linear-gradient(var(--line) 1px, transparent 1px);
   background-size: 100% 34px;
@@ -68,7 +62,6 @@ body{
   flex-direction: column;
 }
 
-/* ---------- header ---------- */
 .app-header{
   position: sticky;
   top: 0;
@@ -127,7 +120,6 @@ body{
   border-bottom-color: var(--gold);
 }
 
-/* ---------- hero ---------- */
 .hero{
   padding: 26px 20px 22px 20px;
   display: flex;
@@ -181,7 +173,6 @@ body{
 }
 .hero__badge .check svg{ width: 10px; height: 10px; }
 
-/* ---------- lista de tarefas ---------- */
 .list-section{
   padding: 20px 20px 28px 20px;
   flex: 1;
