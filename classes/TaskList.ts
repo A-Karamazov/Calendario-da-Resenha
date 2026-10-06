@@ -2,17 +2,19 @@ import { Tarefa } from "./Task"
 
 export class Lista {
 
-    private listaTarefas: Task[] = []
+    private listaTarefas: Tarefa[] = []
 
     adicionarTarefa(tarefa: Tarefa): void {
-        this.tarefas.push(tarefa);
+        this.listaTarefas.push(tarefa);
     }
 
-    excluirTarefa() {
-
+    excluirTarefa(id: number) {
+        const tamanhoAntes = this.listaTarefas.length;
+        this.listaTarefas = this.listaTarefas.filter(tarefa => tarefa.id !== id);
+        return this.listaTarefas.length < tamanhoAntes;
     }
 
-    editarTarefa() {
+    editarTarefa(id: number) {
 
     }
 

@@ -1,14 +1,14 @@
 
 :root{
   /* --- paleta --- */
-  --paper:        #aaf8bd;
-  --surface:      #1a923e;
-  --ink:          #f54141;
+  --paper:        #86faa3;
+  --surface:      #02882a;
+  --ink:          #020000;
   --ink-soft:     #f0f6fd;
   --line:         #E1E5EB;
 
   --primary:      #35fc81;
-  --primary-dark: #b9efff;
+  --primary-dark: #004a61;
   --primary-tint: #E4EEF1;
 
   --gold:         #E3B23C;
@@ -207,7 +207,7 @@ body{
   font-size: 12.5px;
   font-weight: 600;
   color: var(--ink);
-  background: var(--paper);
+  background: rgb(1, 165, 1);
   border: 1px solid var(--line);
   border-radius: 7px;
   padding: 6px 8px;
@@ -314,7 +314,7 @@ body{
 }
 
 .form-section h1{
-  font-family: var(--font-display);
+  font-family: var(--ink-soft);
   font-size: 22px;
   font-weight: 600;
   margin: 0 0 6px 0;
@@ -335,7 +335,7 @@ body{
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 7px;
-  color: var(--ink);
+  color: var(--ink-soft);
 }
 
 .field label .req{
@@ -358,7 +358,7 @@ body{
 
 .field input::placeholder,
 .field textarea::placeholder{
-  color: #98A1AD;
+  color: var(--ink);
 }
 
 .field select{
