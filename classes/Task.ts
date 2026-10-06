@@ -12,7 +12,7 @@ export class Tarefa {
         public obs_ativ: String
     ) { }
 
-    public get id(): string {
+    getId(): string {
         return this.id
     }
 }

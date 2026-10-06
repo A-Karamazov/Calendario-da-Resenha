@@ -8,9 +8,9 @@ export class Lista {
         this.listaTarefas.push(tarefa);
     }
 
-    excluirTarefa(id: number) {
+    excluirTarefa(getId: number) {
         const tamanhoAntes = this.listaTarefas.length;
-        this.listaTarefas = this.listaTarefas.filter(tarefa => tarefa.id !== id);
+        this.listaTarefas = this.listaTarefas.filter(tarefa => tarefa.getId !== getId);
         return this.listaTarefas.length < tamanhoAntes;
     }
 
