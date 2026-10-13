@@ -1,21 +1,21 @@
 
 :root{
   /* --- paleta --- */
-  --paper:        #86faa3;
-  --surface:      #02882a;
-  --ink:          #020000;
-  --ink-soft:     #f0f6fd;
+  --paper:        #F2F4F7;
+  --surface:      #FFFFFF;
+  --ink:          #1C2430;
+  --ink-soft:     #5B6472;
   --line:         #E1E5EB;
-
-  --primary:      #35fc81;
-  --primary-dark: #004a61;
+ 
+  --primary:      #114B5F;
+  --primary-dark: #0B3441;
   --primary-tint: #E4EEF1;
-
+ 
   --gold:         #E3B23C;
-
-  --urgent:       #741102;
-  --urgent-bg:    #ff2600;
-  --urgent-line:  #380800;
+ 
+  --urgent:       #bb2612;
+  --urgent-bg:    #FBE9E6;
+  --urgent-line:  #F0C2BA;
 
   /* tags por matéria */
   --tag-hist-bg:  #E7E9FA; --tag-hist-tx:  #3D3F92;
@@ -411,6 +411,16 @@ body{
 .btn--primary{
   background: var(--primary);
   color: #fff;
+}
+
+/* ---------- adm-login.html ---------- */
+
+#user::placeholder {
+  color: var(--ink-soft)
+}
+
+#senha::placeholder {
+  color: var(--ink-soft)
 }
 
 /* ---------- responsivo ---------- */

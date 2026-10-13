@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda Acadêmica — Acesso Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<div class="page">
+ 
+  <header class="app-header">
+    <div class="app-header__top">
+              <p class="app-header__title">Agenda Acadêmica</p>
+    </div>
+    <nav class="tabs">
+      <a class="tab" href="index.html">Tarefas</a>
+      <a class="tab" href="nova-tarefa.html">Nova Tarefa</a>
+      <a class="tab" href="adm-login.html">ADM</a>
+    </nav>
+  </header>
+ 
+  <section class="form-section">
+    <h1>Acesso administrativo</h1>
+    <p>Entre com a conta de admin para poder remover tarefas.</p>
+ 
+    <form id="admin-login-form">
+      <div class="field">
+        <label for="user">E-mail <span class="req">*</span></label>
+        <input type="user" id="user" placeholder="adm 67 de Moraes" required>
+      </div>
+ 
+      <div class="field">
+        <label for="senha">Senha <span class="req">*</span></label>
+        <input type="password" id="senha" placeholder="••••••••" required>
+      </div>
+ 
+      <p id="login-feedback" class="form-feedback"></p>
+ 
+      <div class="form-actions">
+        <a class="btn btn--ghost" href="index.html">Voltar</a>
+        <button type="submit" class="btn btn--primary">Entrar</button>
+      </div>
+    </form>
+  </section>
+ 
+</div>
+ 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/admin-login.js"></script>
+ 
+</body>
+</html>
