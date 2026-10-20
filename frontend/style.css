@@ -3,7 +3,7 @@
   /* --- paleta --- */
   --paper:        #F2F4F7;
   --surface:      #FFFFFF;
-  --ink:          #1C2430;
+  --ink:          #344358;
   --ink-soft:     #5B6472;
   --line:         #E1E5EB;
  
@@ -111,7 +111,6 @@ body{
   font-weight: 600;
   font-size: 14px;
   padding-bottom: 12px;
-  margin-right: 22px;
   border-bottom: 2px solid transparent;
 }
 
@@ -314,7 +313,7 @@ body{
 }
 
 .form-section h1{
-  font-family: var(--ink-soft);
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 600;
   margin: 0 0 6px 0;
