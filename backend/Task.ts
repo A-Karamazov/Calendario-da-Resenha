@@ -1,5 +1,12 @@
-export type MATERIAS = ["Artes" | "Banco de Dados" | "Biologia" | "Educação Física" | "Engenharia de Software" | "Filosofia" | "Física" | "Geografia" | "História" | "Português" | "Matemática" | "PPO" | "Programação" | "Química" | "Redes de Computadores" | "Sociologia" | "IA e Machine Learning" | "Python" | "Inglês"] as const;
-export type TIPOS_ATIV = ["Prova" | "Trabalho" | "Apresentação"] as const;
+export const MATERIAS = [
+  "Artes", "Banco de Dados", "Biologia", "Educação Física",
+  "Engenharia de Software", "Filosofia", "Física", "Geografia",
+  "História", "Português", "Matemática", "PPO", "Programação",
+  "Química", "Redes de Computadores", "Sociologia",
+  "IA e Machine Learning", "Python", "Inglês",
+] as const;
+
+export const TIPOS_ATIV = ["Prova", "Trabalho", "Apresentação"] as const;
 
 export type Materia = (typeof MATERIAS)[number];
 export type Tipo_ativ = (typeof TIPOS_ATIV)[number];
