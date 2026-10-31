@@ -1,18 +1,15 @@
-export type MATERIAS = ["Artes" | "Banco de Dados" | "Biologia" | "Educação Física" | "Engenharia de Software" | "Filosofia" | "Física" | "Geografia" | "História" | "Português" | "Matemática" | "PPO" | "Programação" | "Química" | "Redes de Computadores" | "Sociologia" | "IA e Machine Learning" | "Python" | "Inglês"] as const;
-export type TIPOS_ATIV = ["Prova" | "Trabalho" | "Apresentação"] as const;
+export const MATERIAS = [
+  "Artes", "Banco de Dados", "Biologia", "Educação Física",
+  "Engenharia de Software", "Filosofia", "Física", "Geografia",
+  "História", "Português", "Matemática", "PPO", "Programação",
+  "Química", "Redes de Computadores", "Sociologia",
+  "IA e Machine Learning", "Python", "Inglês",
+] as const;
+
+export const TIPOS_ATIV = ["Prova", "Trabalho", "Apresentação"] as const;
 
 export type Materia = (typeof MATERIAS)[number];
 export type Tipo_ativ = (typeof TIPOS_ATIV)[number];
- 
-// Type guards: confirmam que um texto qualquer (ex: vindo de um <select>)
-// é mesmo uma Materia / Tipo_ativ válidos, sem usar "as" às cegas.
-export function ehMateria(valor: string): valor is Materia {
-  return (MATERIAS as readonly string[]).includes(valor);
-}
- 
-export function ehTipoAtiv(valor: string): valor is Tipo_ativ {
-  return (TIPOS_ATIV as readonly string[]).includes(valor);
-}
  
 // Formato de uma linha da tabela "tarefas" no Supabase (ver schema.sql).
 export interface TarefaRow {
@@ -76,3 +73,4 @@ export class Tarefa {
     const diffMs = prazoSemHora.getTime() - hoje.getTime();
     return Math.round(diffMs / (1000 * 60 * 60 * 24));
   }
+}
