@@ -1,104 +1,92 @@
 -- =========================================================
--- Agenda Acadêmica — Schema SQL (PostgreSQL / Supabase)
--- Cole este arquivo inteiro no SQL Editor do Supabase e rode.
+-- Calendário da Resenha — Schema SQL (PostgreSQL / Supabase)
+-- Cole tudo no SQL Editor do Supabase e clique em Run.
+-- Pode ser rodado de novo: ele recria a tabela "tarefas"
+-- (e APAGA as tarefas que já existirem nela).
 -- =========================================================
 
--- Extensão necessária para gerar IDs únicos (uuid) automaticamente.
-create extension if not exists "pgcrypto";
-
-
 -- ---------------------------------------------------------
--- Tabela: tarefas
--- Guarda cada prova/trabalho/apresentação cadastrada.
+-- Tabela: tarefas  (colunas com os mesmos nomes da classe Tarefa)
 -- ---------------------------------------------------------
+drop table if exists public.tarefas;
+
 create table public.tarefas (
-  id             uuid primary key default gen_random_uuid(),
+  id             bigint generated always as identity primary key,
 
-  nome           text not null,                -- Ex: "Prova de Matemática"
+  nome           text not null check (char_length(nome) between 1 and 100),
 
   materia        text not null check (materia in (
-                   'Matemática', 'História', 'Geografia',
-                   'Português', 'Biologia', 'Química'
+                   'Artes', 'Banco de Dados', 'Biologia', 'Educação Física',
+                   'Engenharia de Software', 'Filosofia', 'Física', 'Geografia',
+                   'História', 'Português', 'Matemática', 'PPO', 'Programação',
+                   'Química', 'Redes de Computadores', 'Sociologia',
+                   'IA e Machine Learning', 'Python', 'Inglês'
                  )),
 
-  tipo           text not null check (tipo in (
-                   'Prova', 'Trabalho', 'Apresentação', 'Redação'
+  tipo_ativ      text not null check (tipo_ativ in (
+                   'Prova', 'Trabalho', 'Apresentação'
                  )),
 
-  data_entrega   date not null,                 -- dd/mm/aaaa no formulário
-  descricao      text,                          -- opcional, pode ficar em branco
+  prazo          date not null,
+  obs_ativ       text check (char_length(obs_ativ) <= 500),
 
   status         text not null default 'pendente' check (status in (
                    'pendente', 'concluida'
                  )),
 
-  data_cadastro  timestamptz not null default now()  -- preenchido sozinho na criação
+  data_cadastro  timestamptz not null default now()
 );
 
--- Índice para a tela "Próximas Tarefas" (ordenar por data de entrega é a operação mais comum).
-create index tarefas_data_entrega_idx on public.tarefas (data_entrega);
-
+create index tarefas_prazo_idx on public.tarefas (prazo);
 
 -- ---------------------------------------------------------
--- Tabela: admins
--- Lista de quem tem permissão de administrador.
--- Cada linha aponta para um usuário já criado em Authentication > Users.
+-- Tabela: admins  (não é apagada se já existir)
 -- ---------------------------------------------------------
-create table public.admins (
+create table if not exists public.admins (
   user_id    uuid primary key references auth.users (id) on delete cascade,
   criado_em  timestamptz not null default now()
 );
 
--- Não crie nenhuma policy de select/insert nesta tabela para o público.
--- Sem policy = RLS bloqueia todo mundo por padrão, exceto você mesmo
--- inserindo manualmente pelo painel (Table Editor) quando criar o admin.
-
-
 -- ---------------------------------------------------------
--- Row Level Security (RLS)
--- É isso que garante a regra de negócio direto no banco,
--- não só escondendo botões no front-end.
+-- Segurança (Row Level Security)
 -- ---------------------------------------------------------
 alter table public.tarefas enable row level security;
 alter table public.admins  enable row level security;
 
--- Qualquer pessoa (mesmo sem login) pode VER as tarefas.
+-- Qualquer pessoa (sem login) pode VER as tarefas.
 create policy "tarefas_select_publico"
   on public.tarefas for select
   using (true);
 
--- Qualquer pessoa (mesmo sem login) pode CADASTRAR uma nova tarefa,
--- já que os alunos não precisam de conta para usar a agenda.
+-- Qualquer pessoa (sem login) pode CADASTRAR uma tarefa.
 create policy "tarefas_insert_publico"
   on public.tarefas for insert
   with check (true);
 
--- Só quem está na tabela "admins" pode EDITAR uma tarefa existente.
+-- Só admin edita.
 create policy "tarefas_update_admin"
   on public.tarefas for update
-  using (
-    exists (
-      select 1 from public.admins
-      where user_id = auth.uid()
-    )
-  );
+  using (exists (select 1 from public.admins where user_id = auth.uid()))
+  with check (exists (select 1 from public.admins where user_id = auth.uid()));
 
--- Só quem está na tabela "admins" pode EXCLUIR uma tarefa.
+-- Só admin exclui.
 create policy "tarefas_delete_admin"
   on public.tarefas for delete
-  using (
-    exists (
-      select 1 from public.admins
-      where user_id = auth.uid()
-    )
-  );
+  using (exists (select 1 from public.admins where user_id = auth.uid()));
 
+-- Cada usuário logado só consegue ler a PRÓPRIA linha em "admins".
+-- É isso que permite ao site descobrir se quem entrou é admin
+-- (sem expor a lista de admins para ninguém).
+drop policy if exists "admins_select_proprio" on public.admins;
+create policy "admins_select_proprio"
+  on public.admins for select
+  using (user_id = auth.uid());
 
 -- ---------------------------------------------------------
--- Depois de rodar este script:
--- 1. Vá em Authentication > Users e crie o usuário do admin
---    (e-mail + senha).
--- 2. Vá em Table Editor > admins e insira uma linha com o
---    user_id desse usuário (copie o ID lá de Authentication).
--- 3. Pronto: esse login agora passa nas policies de update/delete.
+-- Depois de rodar:
+-- 1. Authentication > Users > Add user (marque "Auto Confirm User").
+-- 2. Copie o UID e rode:
+--      insert into public.admins (user_id) values ('COLE-O-UID-AQUI');
+-- 3. Recomendado: Authentication > Sign In / Providers > Email >
+--    desligue "Allow new users to sign up", para ninguém criar contas.
 -- ---------------------------------------------------------
