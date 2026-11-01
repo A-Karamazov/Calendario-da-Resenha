@@ -1,4 +1,4 @@
-// tarefas.js — página principal (index.html)
+// tarefas.js — página principal (tarefas.html)
 
 import { buscarTarefas, excluirTarefaNoBanco, sair, usuarioEhAdmin, pegar, criar, slug } from "./api.js";
 import { Lista } from "./modelo.js";
