@@ -27,7 +27,7 @@ form.addEventListener("submit", async (evento) => {
 
   try {
     await inserirTarefa(dados);
-    window.location.href = "index.html";
+    window.location.href = "tarefas.html";
   } catch (erro) {
     console.error(erro);
     mostrarMensagem(feedback, "Não foi possível salvar a tarefa. Tente novamente.", "erro");
