@@ -1,34 +1,32 @@
-// =========================================================
-// admin-login.js — lógica da página admin-login.html
-// =========================================================
+// adm-login.js — página de login do administrador
 
-const form = document.getElementById("admin-login-form");
-const feedback = document.getElementById("login-feedback");
+import { entrar, sair, usuarioEhAdmin, pegar, mostrarMensagem } from "./api.js";
+
+const form = pegar("admin-login-form");
+const feedback = pegar("login-feedback");
+
+// Já logado como admin? Não precisa ver o formulário.
+usuarioEhAdmin().then((ehAdmin) => {
+  if (ehAdmin) window.location.href = "index.html";
+});
 
 form.addEventListener("submit", async (evento) => {
   evento.preventDefault();
+  mostrarMensagem(feedback, "Entrando...", "info");
 
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-
-  mostrarFeedback("Entrando...", "info");
-
-  const { error } = await window.db.auth.signInWithPassword({
-    email,
-    password: senha,
-  });
-
-  if (error) {
-    mostrarFeedback("E-mail ou senha inválidos.", "erro");
-    console.error(error);
+  try {
+    await entrar(pegar("email").value.trim(), pegar("senha").value);
+  } catch (erro) {
+    console.error(erro);
+    mostrarMensagem(feedback, "E-mail ou senha inválidos.", "erro");
     return;
   }
 
-  // Login ok: volta para a lista de tarefas, agora com os botões de admin.
+  // Login válido não basta: a conta precisa estar na tabela "admins".
+  if (!(await usuarioEhAdmin())) {
+    await sair();
+    mostrarMensagem(feedback, "Esta conta não tem permissão de administrador.", "erro");
+    return;
+  }
   window.location.href = "index.html";
 });
-
-function mostrarFeedback(texto, tipo) {
-  feedback.textContent = texto;
-  feedback.className = `form-feedback form-feedback--${tipo}`;
-}
