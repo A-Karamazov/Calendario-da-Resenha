@@ -1,41 +1,36 @@
-// =========================================================
-// nova-tarefa.js — lógica do formulário "Criar Nova Tarefa"
-// =========================================================
+// nova-tarefa.js — formulário "Criar nova tarefa"
 
-const form = document.getElementById("nova-tarefa-form");
-const feedback = document.getElementById("form-feedback");
+import { inserirTarefa, pegar, mostrarMensagem } from "./api.js";
+
+const form = pegar("nova-tarefa-form");
+const feedback = pegar("form-feedback");
+const botaoSalvar = pegar("btn-salvar");
 
 form.addEventListener("submit", async (evento) => {
   evento.preventDefault();
 
-  const novaTarefa = {
-    nome: document.getElementById("nome").value.trim(),
-    materia: document.getElementById("materia").value,
-    tipo: document.getElementById("tipo").value,
-    data_entrega: document.getElementById("data").value,
-    descricao: document.getElementById("descricao").value.trim() || null,
+  const dados = {
+    nome: pegar("nome").value.trim(),
+    materia: pegar("materia").value,
+    tipo_ativ: pegar("tipo").value,
+    prazo: pegar("data").value,
+    obs_ativ: pegar("descricao").value.trim(),
   };
 
-  if (!novaTarefa.nome || !novaTarefa.materia || !novaTarefa.tipo || !novaTarefa.data_entrega) {
-    mostrarFeedback("Preencha todos os campos obrigatórios.", "erro");
+  if (!dados.nome || !dados.materia || !dados.tipo_ativ || !dados.prazo) {
+    mostrarMensagem(feedback, "Preencha todos os campos obrigatórios.", "erro");
     return;
   }
 
-  mostrarFeedback("Salvando...", "info");
+  botaoSalvar.disabled = true; // evita duplo clique cadastrando duas vezes
+  mostrarMensagem(feedback, "Salvando...", "info");
 
-  const { error } = await window.db.from("tarefas").insert(novaTarefa);
-
-  if (error) {
-    mostrarFeedback("Não foi possível salvar a tarefa. Tente novamente.", "erro");
-    console.error(error);
-    return;
+  try {
+    await inserirTarefa(dados);
+    window.location.href = "index.html";
+  } catch (erro) {
+    console.error(erro);
+    mostrarMensagem(feedback, "Não foi possível salvar a tarefa. Tente novamente.", "erro");
+    botaoSalvar.disabled = false;
   }
-
-  // Tarefa salva com sucesso: volta para a lista.
-  window.location.href = "index.html";
 });
-
-function mostrarFeedback(texto, tipo) {
-  feedback.textContent = texto;
-  feedback.className = `form-feedback form-feedback--${tipo}`;
-}
