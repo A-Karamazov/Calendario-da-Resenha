@@ -7,7 +7,7 @@ const feedback = pegar("login-feedback");
 
 // Já logado como admin? Não precisa ver o formulário.
 usuarioEhAdmin().then((ehAdmin) => {
-  if (ehAdmin) window.location.href = "tarefas.html";
+  if (ehAdmin) window.location.href = "index.html";
 });
 
 form.addEventListener("submit", async (evento) => {
@@ -28,5 +28,5 @@ form.addEventListener("submit", async (evento) => {
     mostrarMensagem(feedback, "Esta conta não tem permissão de administrador.", "erro");
     return;
   }
-  window.location.href = "tarefas.html";
+  window.location.href = "index.html";
 });
