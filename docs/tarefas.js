@@ -45,7 +45,7 @@ function criarCard(tarefa) {
   return card;
 }
 
-function desenhar() {
+function mostrarTarefas() {
   listaEl.replaceChildren();
   const tarefas = tarefasOrdenadas();
   if (tarefas.length === 0) {
@@ -60,7 +60,7 @@ async function excluir(tarefa) {
   try {
     await excluirTarefaNoBanco(tarefa.getId());
     lista.excluirTarefa(tarefa.getId());
-    desenhar();
+    mostrarTarefas();
   } catch (erro) {
     console.error(erro);
     alert("Não foi possível excluir. Confirme se você está logado como admin.");
@@ -86,8 +86,8 @@ async function iniciar() {
     });
     barraAdminEl.append(botao);
   }
-  desenhar();
+  mostrarTarefas();
 }
 
-ordenarEl.addEventListener("change", desenhar);
+ordenarEl.addEventListener("change", mostrarTarefas);
 iniciar();

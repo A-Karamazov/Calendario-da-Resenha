@@ -1,7 +1,7 @@
 // modelo.js — as duas classes do projeto: Tarefa e Lista
 
 export class Tarefa {
-  #id; // privado: só se lê pelo getId()
+  #id; 
 
   constructor(id, nome, materia, tipo_ativ, prazo, obs_ativ = "") {
     this.#id = id;
@@ -16,8 +16,7 @@ export class Tarefa {
     return this.#id;
   }
 
-  // Linha do banco -> Tarefa. A data é montada no fuso local
-  // (new Date("2025-09-18") viria em UTC e poderia cair no dia anterior).
+  // Formata a data do banco (YYYY-MM-DD) para um objeto Date. O mês é 0-11.
   static fromRow(linha) {
     const [ano, mes, dia] = linha.prazo.split("-").map(Number);
     return new Tarefa(
@@ -26,7 +25,6 @@ export class Tarefa {
     );
   }
 
-  // Dias até o prazo (negativo = atrasada).
   diasRestantes() {
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
@@ -35,7 +33,6 @@ export class Tarefa {
     return Math.round((prazo - hoje) / 86400000);
   }
 
-  // Regra do projeto: 3 dias ou menos = urgente (vermelho).
   estaUrgente() {
     return this.diasRestantes() <= 3;
   }
@@ -55,6 +52,8 @@ export class Tarefa {
   }
 }
 
+
+
 export class Lista {
   #tarefas;
 
@@ -73,7 +72,6 @@ export class Lista {
     return this.#tarefas.length < antes;
   }
 
-  // Ex: lista.editarTarefa(3, { nome: "Novo nome" }). false se o id não existe.
   editarTarefa(id, dados) {
     const tarefa = this.#tarefas.find((t) => t.getId() === id);
     if (!tarefa) return false;
@@ -81,18 +79,15 @@ export class Lista {
     return true;
   }
 
-  // Devolve uma cópia: quem chama não mexe na lista interna.
   listarTarefa() {
     return [...this.#tarefas];
   }
 
-  // Prazo mais próximo primeiro (ou o contrário, se decrescente = true).
   sortearPorPrazoEntrega(decrescente = false) {
     const lista = [...this.#tarefas].sort((a, b) => a.prazo - b.prazo);
     return decrescente ? lista.reverse() : lista;
   }
 
-  // Matéria de A a Z; empate desempata pelo prazo.
   ordenarPorMateria() {
     return [...this.#tarefas].sort(
       (a, b) => a.materia.localeCompare(b.materia, "pt-BR") || a.prazo - b.prazo

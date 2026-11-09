@@ -22,7 +22,7 @@ form.addEventListener("submit", async (evento) => {
     return;
   }
 
-  botaoSalvar.disabled = true; // evita duplo clique cadastrando duas vezes
+  botaoSalvar.disabled = true; 
   mostrarMensagem(feedback, "Salvando...", "info");
 
   try {
