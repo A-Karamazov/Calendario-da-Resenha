@@ -1,13 +1,3 @@
--- =========================================================
--- Calendário da Resenha — Schema SQL (PostgreSQL / Supabase)
--- Cole tudo no SQL Editor do Supabase e clique em Run.
--- Pode ser rodado de novo: ele recria a tabela "tarefas"
--- (e APAGA as tarefas que já existirem nela).
--- =========================================================
-
--- ---------------------------------------------------------
--- Tabela: tarefas  (colunas com os mesmos nomes da classe Tarefa)
--- ---------------------------------------------------------
 drop table if exists public.tarefas;
 
 create table public.tarefas (
@@ -39,37 +29,33 @@ create table public.tarefas (
 
 create index tarefas_prazo_idx on public.tarefas (prazo);
 
--- ---------------------------------------------------------
--- Tabela: admins  (não é apagada se já existir)
--- ---------------------------------------------------------
+
 create table if not exists public.admins (
   user_id    uuid primary key references auth.users (id) on delete cascade,
   criado_em  timestamptz not null default now()
 );
 
--- ---------------------------------------------------------
--- Segurança (Row Level Security)
--- ---------------------------------------------------------
+
 alter table public.tarefas enable row level security;
 alter table public.admins  enable row level security;
 
--- Qualquer pessoa (sem login) pode VER as tarefas.
+-- Qualquer pessoa (sem login) pode ver as tarefas.
 create policy "tarefas_select_publico"
   on public.tarefas for select
   using (true);
 
--- Qualquer pessoa (sem login) pode CADASTRAR uma tarefa.
+-- Qualquer pessoa (sem login) pode cadastrar tarefas.
 create policy "tarefas_insert_publico"
   on public.tarefas for insert
   with check (true);
 
--- Só admin edita.
+-- só admin edita
 create policy "tarefas_update_admin"
   on public.tarefas for update
   using (exists (select 1 from public.admins where user_id = auth.uid()))
   with check (exists (select 1 from public.admins where user_id = auth.uid()));
 
--- Só admin exclui.
+-- só admin exclui
 create policy "tarefas_delete_admin"
   on public.tarefas for delete
   using (exists (select 1 from public.admins where user_id = auth.uid()));
@@ -81,12 +67,3 @@ drop policy if exists "admins_select_proprio" on public.admins;
 create policy "admins_select_proprio"
   on public.admins for select
   using (user_id = auth.uid());
-
--- ---------------------------------------------------------
--- Depois de rodar:
--- 1. Authentication > Users > Add user (marque "Auto Confirm User").
--- 2. Copie o UID e rode:
---      insert into public.admins (user_id) values ('COLE-O-UID-AQUI');
--- 3. Recomendado: Authentication > Sign In / Providers > Email >
---    desligue "Allow new users to sign up", para ninguém criar contas.
--- ---------------------------------------------------------
